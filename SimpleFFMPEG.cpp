@@ -1,12 +1,14 @@
 #include <iostream>
 using namespace std;
 
-#define FFMPEG_DIR "ThirdParty\\ffmpeg\\bin\\ffmpeg.exe -f image2 -pix_fmt yuv420p -vcodec libx264 "
+#define FFMPEG_DIR "ThirdParty\\ffmpeg\\bin\\ffmpeg.exe -f image2 -pix_fmt yuv420p "
 #define BREAK_STR "****************************************************\n"
 #define QUIT 0
 #define COMPOSITE_VIDEO 1
 
-/*
+string VCODEC = "-vcodec libx264 ";
+
+/*s
 ffmpeg -r 60 -f image2 -s 1920x1080 -i fram%d.jpg -vcodec libx264 -crf 25  -pix_fmt yuv420p test.mp4
 
 %04d 表示用零来填充直到长度为4，i.e 0001…0020…0030…2000 and so on. 如果没有填充，需要相应更改，如 pic%d.png or %d.png
@@ -20,7 +22,7 @@ test.mp4 输出在当前文件夹，输出结果为test.mp4
 
 void CompositeVideo(string FPS, string RESOLUTION, string FRAME_NAME, string AUDIO_PATH, string TARGET_PATH, string CRF)
 {
-    const string Str = (FFMPEG_DIR + FPS + RESOLUTION + FRAME_NAME + AUDIO_PATH + CRF + TARGET_PATH);
+    const string Str = (FFMPEG_DIR + FPS + RESOLUTION + FRAME_NAME + AUDIO_PATH + CRF + VCODEC + TARGET_PATH);
     system(Str.c_str());
 }
 
